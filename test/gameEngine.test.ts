@@ -256,6 +256,19 @@ describe('Core Game Engine: The Five Elements - Imposter', () => {
       });
     });
 
+    it('authenticates with custom player nickname and realm identifier', () => {
+      const auth = authenticateUser('jal', 'J@L135', 'Captain Nemo');
+      expect(auth).not.toBeNull();
+      expect(auth?.session.role).toBe('TEAM');
+      expect(auth?.session.teamId).toBe('jal');
+      expect(auth?.session.username).toBe('Captain Nemo');
+      expect(auth?.session.displayName).toContain('Captain Nemo');
+      
+      const verified = verifyToken(auth!.token);
+      expect(verified?.username).toBe('Captain Nemo');
+      expect(verified?.teamId).toBe('jal');
+    });
+
     it('rejects unauthenticated and forged access', () => {
       expect(authenticateUser('unknown', '123')).toBeNull();
       expect(authenticateUser('admin', 'bad')).toBeNull();

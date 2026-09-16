@@ -44,11 +44,14 @@ Every team realm features a dedicated, high-performance **Three.js WebGL canvas*
 
 ---
 
-## 🔐 Authentication Credentials
+## 🔐 Authentication Credentials (3-Field Gateway)
 
-To ensure authentic deduction without pre-selected role bias, the login screen provides a **single unified authentication portal** (no team selector buttons). Players enter their username and secret access key:
+To enter the council, each player authenticates via the **Universal Elemental Gateway**:
+1. **User Name / Player Name**: Your personal nickname or handle (e.g. `Alex`, `Commander Snehith`, `Arbiter`)
+2. **Team Name / Realm Identifier**: The target elemental realm or admin console
+3. **Secret Access Key / Password**: The realm's security password
 
-| Role / Elemental Realm | Username / Identifier | Secret Access Key (Password) | Dashboard & Permissions |
+| Role / Elemental Realm | Team Name / Realm Identifier | Secret Access Key (Password) | Dashboard & Permissions |
 | :--- | :--- | :--- | :--- |
 | **Supreme Arbiter (Admin)** | `admin` | `Adm!N7308` | Full game orchestration, timer controls, reveals, presets |
 | **PRUDHVI (Earth)** | `prudhvi` | `PruD#v!236;` | Earth 3D Realm Dashboard, Secret Card & Buzzer |

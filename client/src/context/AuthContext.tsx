@@ -5,7 +5,11 @@ interface AuthContextType {
   session: AuthSession | null;
   token: string | null;
   isLoading: boolean;
-  login: (username: string, password: string) => Promise<{ success: boolean; error?: string }>;
+  login: (
+    userNameOrTeam: string,
+    teamNameOrPassword: string,
+    passwordOrUndefined?: string
+  ) => Promise<{ success: boolean; error?: string }>;
   logout: () => void;
 }
 
@@ -47,12 +51,32 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, []);
 
-  const login = async (username: string, password: string): Promise<{ success: boolean; error?: string }> => {
+  const login = async (
+    userNameOrTeam: string,
+    teamNameOrPassword: string,
+    passwordOrUndefined?: string
+  ): Promise<{ success: boolean; error?: string }> => {
     try {
+      let bodyPayload: { playerName?: string; teamName: string; password: string };
+      if (passwordOrUndefined !== undefined) {
+        // Called as login(playerName, teamName, password)
+        bodyPayload = {
+          playerName: userNameOrTeam.trim(),
+          teamName: teamNameOrPassword.trim(),
+          password: passwordOrUndefined
+        };
+      } else {
+        // Called as login(teamName, password)
+        bodyPayload = {
+          teamName: userNameOrTeam.trim(),
+          password: teamNameOrPassword
+        };
+      }
+
       const res = await fetch(`${API_BASE}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify(bodyPayload)
       });
 
       const data = await res.json();

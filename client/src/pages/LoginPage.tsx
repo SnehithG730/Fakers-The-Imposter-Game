@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Shield, Sparkles, AlertCircle, ArrowRight, Lock, User, Eye, EyeOff } from 'lucide-react';
+import { Shield, Sparkles, AlertCircle, ArrowRight, Lock, User, Eye, EyeOff, Globe } from 'lucide-react';
 
 export const LoginPage: React.FC = () => {
   const { login } = useAuth();
-  const [username, setUsername] = useState('');
+  const [playerName, setPlayerName] = useState('');
+  const [teamName, setTeamName] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -12,15 +13,20 @@ export const LoginPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!username.trim() || !password.trim()) {
-      setError('Please enter both username and password.');
+    if (!teamName.trim() || !password.trim()) {
+      setError('Please enter both Team Name / Realm and Password.');
       return;
     }
 
     setLoading(true);
     setError(null);
 
-    const res = await login(username.trim(), password);
+    const res = await login(
+      playerName.trim() || teamName.trim(),
+      teamName.trim(),
+      password
+    );
+
     if (!res.success) {
       setError(res.error || 'Authentication failed. Please verify credentials.');
     }
@@ -74,11 +80,11 @@ export const LoginPage: React.FC = () => {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Username Input */}
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {/* 1. User Name / Player Name Input */}
             <div>
-              <label className="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2 font-display">
-                Username / Realm Identifier
+              <label className="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-1.5 font-display">
+                User Name / Player Name
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
@@ -86,22 +92,46 @@ export const LoginPage: React.FC = () => {
                 </div>
                 <input
                   type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  placeholder="e.g. prudhvi, vayu, jal, aakash, agni, admin"
-                  autoComplete="username"
-                  autoCapitalize="none"
+                  value={playerName}
+                  onChange={(e) => setPlayerName(e.target.value)}
+                  placeholder="e.g. Alex, Player 1, Snehith"
+                  autoComplete="name"
+                  autoCapitalize="words"
                   spellCheck="false"
                   disabled={loading}
-                  className="w-full pl-10 pr-4 py-3 bg-black/50 border border-white/10 rounded-2xl text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all shadow-inner disabled:opacity-50"
+                  className="w-full pl-10 pr-4 py-2.5 bg-black/50 border border-white/10 rounded-2xl text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all shadow-inner disabled:opacity-50"
                 />
               </div>
             </div>
 
-            {/* Password Input */}
+            {/* 2. Team Name / Realm Identifier Input */}
             <div>
-              <label className="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2 font-display">
-                Secret Access Key / Password
+              <label className="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-1.5 font-display">
+                Team Name / Realm Identifier <span className="text-purple-400">*</span>
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
+                  <Globe className="w-4 h-4" />
+                </div>
+                <input
+                  type="text"
+                  value={teamName}
+                  onChange={(e) => setTeamName(e.target.value)}
+                  placeholder="e.g. prudhvi, vayu, jal, aakash, agni, admin"
+                  autoComplete="username"
+                  autoCapitalize="none"
+                  spellCheck="false"
+                  required
+                  disabled={loading}
+                  className="w-full pl-10 pr-4 py-2.5 bg-black/50 border border-white/10 rounded-2xl text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all shadow-inner disabled:opacity-50"
+                />
+              </div>
+            </div>
+
+            {/* 3. Password Input */}
+            <div>
+              <label className="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-1.5 font-display">
+                Secret Access Key / Password <span className="text-purple-400">*</span>
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
@@ -111,10 +141,11 @@ export const LoginPage: React.FC = () => {
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter your access key"
+                  placeholder="Enter secret team key"
                   autoComplete="current-password"
+                  required
                   disabled={loading}
-                  className="w-full pl-10 pr-11 py-3 bg-black/50 border border-white/10 rounded-2xl text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all shadow-inner disabled:opacity-50"
+                  className="w-full pl-10 pr-11 py-2.5 bg-black/50 border border-white/10 rounded-2xl text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all shadow-inner disabled:opacity-50"
                 />
                 <button
                   type="button"
@@ -131,7 +162,7 @@ export const LoginPage: React.FC = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full mt-2 py-3.5 px-6 rounded-2xl bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 hover:from-purple-500 hover:via-indigo-500 hover:to-purple-600 active:scale-[0.99] text-white font-bold font-display text-sm tracking-wider shadow-lg shadow-purple-900/30 transition-all flex items-center justify-center space-x-2 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+              className="w-full mt-3 py-3 px-6 rounded-2xl bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 hover:from-purple-500 hover:via-indigo-500 hover:to-purple-600 active:scale-[0.99] text-white font-bold font-display text-sm tracking-wider shadow-lg shadow-purple-900/30 transition-all flex items-center justify-center space-x-2 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
             >
               {loading ? (
                 <>

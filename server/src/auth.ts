@@ -59,19 +59,27 @@ const ACCOUNTS: Record<string, UserAccount> = {
   }
 };
 
-export function authenticateUser(username: string, password: string): { session: AuthSession; token: string } | null {
-  const normalizedUser = username.trim().toLowerCase();
-  const account = ACCOUNTS[normalizedUser];
+export function authenticateUser(
+  teamOrUsername: string,
+  password: string,
+  customPlayerName?: string
+): { session: AuthSession; token: string } | null {
+  const normalizedRealm = teamOrUsername.trim().toLowerCase();
+  const account = ACCOUNTS[normalizedRealm];
   if (!account) return null;
 
   const isMatch = bcrypt.compareSync(password, account.passwordHash);
   if (!isMatch) return null;
 
+  const displayName = customPlayerName && customPlayerName.trim()
+    ? `${customPlayerName.trim()} (${account.displayName})`
+    : account.displayName;
+
   const session: AuthSession = {
-    username: account.username,
+    username: customPlayerName && customPlayerName.trim() ? customPlayerName.trim() : account.username,
     role: account.role,
     teamId: account.teamId,
-    displayName: account.displayName
+    displayName
   };
 
   const token = jwt.sign(session, JWT_SECRET, { expiresIn: TOKEN_EXPIRY });

@@ -1,4 +1,4 @@
-﻿import express from 'express';
+import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
@@ -60,14 +60,17 @@ app.get('/api/health', (req, res) => {
 });
 
 app.post('/api/auth/login', (req, res) => {
-  const { username, password } = req.body;
-  if (!username || !password) {
-    return res.status(400).json({ error: 'Username and password are required' });
+  const { username, teamName, password, playerName } = req.body;
+  const realm = (teamName || (username && !playerName ? username : '')).toString().trim();
+  const player = (playerName || (teamName && username ? username : '')).toString().trim();
+
+  if (!realm || !password) {
+    return res.status(400).json({ error: 'Team name / realm identifier and password are required' });
   }
 
-  const result = authenticateUser(username, password);
+  const result = authenticateUser(realm, password, player || undefined);
   if (!result) {
-    return res.status(401).json({ error: 'Invalid elemental credentials' });
+    return res.status(401).json({ error: 'Invalid elemental credentials or realm identifier' });
   }
 
   return res.json(result);
