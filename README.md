@@ -63,16 +63,16 @@ In the ancient cosmological council, five elemental realms convene to guard univ
 
 ---
 
-## 🔐 Default Credentials (1-Click Login Ready)
+## 🔐 Authentication Credentials
 
-| Role / Realm | Account Identifier | Password | Access Level |
+| Role / Realm | Username / Identifier | Secret Access Key (Password) | Access Level |
 | :--- | :--- | :--- | :--- |
-| **Supreme Arbiter (Admin)** | `admin` | `admin123` | Complete game & timer controls, reveals, presets |
-| **PRUDHVI (Earth)** | `prudhvi` | `prudhvi123` | Team Dashboard & Buzzer |
-| **VAYU (Air)** | `vayu` | `vayu123` | Team Dashboard & Buzzer |
-| **JAL (Water)** | `jal` | `jal123` | Team Dashboard & Buzzer |
-| **AAKASH (Cosmos)** | `aakash` | `aakash123` | Team Dashboard & Buzzer |
-| **AGNI (Fire)** | `agni` | `agni123` | Team Dashboard & Buzzer |
+| **Supreme Arbiter (Admin)** | `admin` | `Adm!N7308` | Complete game & timer controls, reveals, presets |
+| **PRUDHVI (Earth)** | `prudhvi` | `PruD#v!236;` | Earth Realm Dashboard & Buzzer |
+| **VAYU (Air)** | `vayu` | `V@yU378` | Air Realm Dashboard & Buzzer |
+| **JAL (Water)** | `jal` | `J@L135` | Water Realm Dashboard & Buzzer |
+| **AAKASH (Cosmos)** | `aakash` | `A@Ka$H124` | Cosmos Realm Dashboard & Buzzer |
+| **AGNI (Fire)** | `agni` | `@Gn!246` | Fire Realm Dashboard & Buzzer |
 
 ---
 

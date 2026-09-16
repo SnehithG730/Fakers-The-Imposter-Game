@@ -45,15 +45,22 @@ async function runAudit() {
   console.log('--- 1. AUTHENTICATION & AUTHORIZATION AUDIT ---');
 
   // 1.1 Admin login
-  const adminAuth = await postLogin('admin', 'admin123');
+  const adminAuth = await postLogin('admin', 'Adm!N7308');
   check('Admin authentication with valid credentials', adminAuth.status === 200 && !!adminAuth.data.token);
   const adminToken = adminAuth.data.token;
 
   // 1.2 All 5 Teams login
-  const teams = ['prudhvi', 'vayu', 'jal', 'aakash', 'agni'];
+  const teamCreds = {
+    prudhvi: 'PruD#v!236;',
+    vayu: 'V@yU378',
+    jal: 'J@L135',
+    aakash: 'A@Ka$H124',
+    agni: '@Gn!246'
+  };
+  const teams = Object.keys(teamCreds);
   const teamTokens = {};
   for (const t of teams) {
-    const res = await postLogin(t, `${t}123`);
+    const res = await postLogin(t, teamCreds[t]);
     check(`Team [${t.toUpperCase()}] authentication`, res.status === 200 && !!res.data.token);
     teamTokens[t] = res.data.token;
   }

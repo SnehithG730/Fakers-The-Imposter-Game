@@ -238,11 +238,18 @@ describe('Core Game Engine: The Five Elements - Imposter', () => {
 
   describe('7. Authentication & Token Security', () => {
     it('authenticates admin and all 5 teams with secure credentials', () => {
-      expect(authenticateUser('admin', 'admin123')?.session.role).toBe('ADMIN');
+      expect(authenticateUser('admin', 'Adm!N7308')?.session.role).toBe('ADMIN');
       
-      const teams: TeamId[] = ['prudhvi', 'vayu', 'jal', 'aakash', 'agni'];
-      teams.forEach(t => {
-        const auth = authenticateUser(t, t + '123');
+      const credentials: Record<TeamId, string> = {
+        prudhvi: 'PruD#v!236;',
+        vayu: 'V@yU378',
+        jal: 'J@L135',
+        aakash: 'A@Ka$H124',
+        agni: '@Gn!246'
+      };
+
+      (Object.keys(credentials) as TeamId[]).forEach(t => {
+        const auth = authenticateUser(t, credentials[t]);
         expect(auth?.session.role).toBe('TEAM');
         expect(auth?.session.teamId).toBe(t);
         expect(verifyToken(auth!.token)?.teamId).toBe(t);

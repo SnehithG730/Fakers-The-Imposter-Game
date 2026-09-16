@@ -20,42 +20,42 @@ const ACCOUNTS: Record<string, UserAccount> = {
     username: 'admin',
     role: 'ADMIN',
     displayName: 'Supreme Arbiter (Admin)',
-    passwordHash: bcrypt.hashSync(process.env.ADMIN_PASSWORD || 'admin123', SALT)
+    passwordHash: bcrypt.hashSync(process.env.ADMIN_PASSWORD || 'Adm!N7308', SALT)
   },
   prudhvi: {
     username: 'prudhvi',
     role: 'TEAM',
     teamId: 'prudhvi',
     displayName: 'Prudhvi (Earth)',
-    passwordHash: bcrypt.hashSync(process.env.PRUDHVI_PASSWORD || 'prudhvi123', SALT)
+    passwordHash: bcrypt.hashSync(process.env.PRUDHVI_PASSWORD || 'PruD#v!236;', SALT)
   },
   vayu: {
     username: 'vayu',
     role: 'TEAM',
     teamId: 'vayu',
     displayName: 'Vayu (Air)',
-    passwordHash: bcrypt.hashSync(process.env.VAYU_PASSWORD || 'vayu123', SALT)
+    passwordHash: bcrypt.hashSync(process.env.VAYU_PASSWORD || 'V@yU378', SALT)
   },
   jal: {
     username: 'jal',
     role: 'TEAM',
     teamId: 'jal',
     displayName: 'Jal (Water)',
-    passwordHash: bcrypt.hashSync(process.env.JAL_PASSWORD || 'jal123', SALT)
+    passwordHash: bcrypt.hashSync(process.env.JAL_PASSWORD || 'J@L135', SALT)
   },
   aakash: {
     username: 'aakash',
     role: 'TEAM',
     teamId: 'aakash',
     displayName: 'Aakash (Cosmos)',
-    passwordHash: bcrypt.hashSync(process.env.AAKASH_PASSWORD || 'aakash123', SALT)
+    passwordHash: bcrypt.hashSync(process.env.AAKASH_PASSWORD || 'A@Ka$H124', SALT)
   },
   agni: {
     username: 'agni',
     role: 'TEAM',
     teamId: 'agni',
     displayName: 'Agni (Fire)',
-    passwordHash: bcrypt.hashSync(process.env.AGNI_PASSWORD || 'agni123', SALT)
+    passwordHash: bcrypt.hashSync(process.env.AGNI_PASSWORD || '@Gn!246', SALT)
   }
 };
 

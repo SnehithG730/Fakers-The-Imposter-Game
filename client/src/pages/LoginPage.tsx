@@ -1,122 +1,41 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Shield, Sparkles, AlertCircle, ArrowRight, Flame, Mountain, Wind, Waves, Orbit } from 'lucide-react';
-import { TeamId } from '../types';
-
-const PRESET_ACCOUNTS = [
-  {
-    id: 'admin',
-    name: 'Supreme Arbiter (Admin)',
-    subtitle: 'Controls rounds, timers, buzzer, reveal',
-    username: 'admin',
-    password: 'admin123',
-    icon: <Shield className="w-6 h-6 text-amber-400" />,
-    gradient: 'from-amber-900/60 via-amber-950/80 to-black',
-    border: 'border-amber-500/40 hover:border-amber-400',
-    shadow: 'hover:shadow-amber-500/20'
-  },
-  {
-    id: 'prudhvi',
-    name: 'Prudhvi',
-    subtitle: 'Earth Element — Stone & Mountain',
-    username: 'prudhvi',
-    password: 'prudhvi123',
-    icon: <Mountain className="w-6 h-6 text-emerald-400" />,
-    gradient: 'from-emerald-950/80 via-green-950/80 to-black',
-    border: 'border-emerald-500/40 hover:border-emerald-400',
-    shadow: 'hover:shadow-emerald-500/20'
-  },
-  {
-    id: 'vayu',
-    name: 'Vayu',
-    subtitle: 'Air Element — Wind & Atmosphere',
-    username: 'vayu',
-    password: 'vayu123',
-    icon: <Wind className="w-6 h-6 text-cyan-400" />,
-    gradient: 'from-cyan-950/80 via-sky-950/80 to-black',
-    border: 'border-cyan-500/40 hover:border-cyan-400',
-    shadow: 'hover:shadow-cyan-500/20'
-  },
-  {
-    id: 'jal',
-    name: 'Jal',
-    subtitle: 'Water Element — Ocean & Abyss',
-    username: 'jal',
-    password: 'jal123',
-    icon: <Waves className="w-6 h-6 text-blue-400" />,
-    gradient: 'from-blue-950/80 via-indigo-950/80 to-black',
-    border: 'border-blue-500/40 hover:border-blue-400',
-    shadow: 'hover:shadow-blue-500/20'
-  },
-  {
-    id: 'aakash',
-    name: 'Aakash',
-    subtitle: 'Space Element — Cosmos & Nebula',
-    username: 'aakash',
-    password: 'aakash123',
-    icon: <Orbit className="w-6 h-6 text-purple-400" />,
-    gradient: 'from-purple-950/80 via-violet-950/80 to-black',
-    border: 'border-purple-500/40 hover:border-purple-400',
-    shadow: 'hover:shadow-purple-500/20'
-  },
-  {
-    id: 'agni',
-    name: 'Agni',
-    subtitle: 'Fire Element — Flame & Molten Core',
-    username: 'agni',
-    password: 'agni123',
-    icon: <Flame className="w-6 h-6 text-rose-400" />,
-    gradient: 'from-rose-950/80 via-red-950/80 to-black',
-    border: 'border-rose-500/40 hover:border-rose-400',
-    shadow: 'hover:shadow-rose-500/20'
-  }
-];
+import { Shield, Sparkles, AlertCircle, ArrowRight, Lock, User, Eye, EyeOff } from 'lucide-react';
 
 export const LoginPage: React.FC = () => {
   const { login } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const handleManualLogin = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!username.trim() || !password.trim()) {
-      setError('Please enter both username and password');
+      setError('Please enter both username and password.');
       return;
     }
 
     setLoading(true);
     setError(null);
 
-    const res = await login(username, password);
+    const res = await login(username.trim(), password);
     if (!res.success) {
-      setError(res.error || 'Invalid credentials');
-    }
-    setLoading(false);
-  };
-
-  const handleQuickLogin = async (accUser: string, accPass: string) => {
-    setUsername(accUser);
-    setPassword(accPass);
-    setLoading(true);
-    setError(null);
-
-    const res = await login(accUser, accPass);
-    if (!res.success) {
-      setError(res.error || 'Quick login failed');
+      setError(res.error || 'Authentication failed. Please verify credentials.');
     }
     setLoading(false);
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 py-12 relative overflow-hidden">
+    <div className="min-h-[calc(100vh-4rem)] flex flex-col justify-center items-center px-4 sm:px-6 py-12 relative overflow-hidden">
       {/* Ambient background glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-600/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 right-1/4 w-80 h-80 bg-cyan-600/10 rounded-full blur-3xl pointer-events-none" />
 
       {/* Main Header */}
-      <div className="text-center max-w-2xl mx-auto mb-10 relative z-10">
-        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-purple-900/30 border border-purple-500/30 text-purple-300 text-xs font-semibold mb-4">
+      <div className="text-center max-w-xl mx-auto mb-8 relative z-10">
+        <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-purple-900/30 border border-purple-500/30 text-purple-300 text-xs font-semibold mb-4 backdrop-blur-sm">
           <Sparkles className="w-3.5 h-3.5 text-purple-400" />
           <span>REAL-TIME MULTIPLAYER DEDUCTION</span>
         </div>
@@ -126,100 +45,114 @@ export const LoginPage: React.FC = () => {
         <p className="text-xl sm:text-2xl font-black font-display tracking-widest text-gray-300 mt-1">
           IMPOSTER
         </p>
-        <p className="text-sm text-gray-400 mt-3">
-          Four teams share the secret keyword. One team is the Imposter. Decipher clues, buzz in, and expose deception.
-        </p>
       </div>
 
-      <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 gap-8 relative z-10">
-        {/* Quick Selection Cards */}
-        <div className="lg:col-span-7 space-y-3">
-          <div className="flex items-center justify-between px-1 mb-2">
-            <h2 className="text-sm font-bold tracking-wider text-gray-300 uppercase font-display">
-              Select Your Role / Team
-            </h2>
-            <span className="text-xs text-gray-500">1-Click Instant Login</span>
+      {/* Centered Login Portal Card */}
+      <div className="w-full max-w-md relative z-10">
+        <div className="glass-panel p-8 sm:p-10 rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden">
+          {/* Subtle top ambient accent line */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 via-amber-400 to-cyan-400 opacity-75" />
+
+          <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/10">
+            <div>
+              <h2 className="text-xl font-bold font-display text-white">
+                Elemental Gateway
+              </h2>
+              <p className="text-xs text-gray-400 mt-0.5">
+                Authenticate to enter your assigned realm
+              </p>
+            </div>
+            <div className="w-10 h-10 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-purple-400">
+              <Lock className="w-5 h-5" />
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {PRESET_ACCOUNTS.map((acc) => (
-              <button
-                key={acc.id}
-                onClick={() => handleQuickLogin(acc.username, acc.password)}
-                disabled={loading}
-                className={`group flex items-start space-x-3.5 p-4 rounded-2xl bg-gradient-to-br ${acc.gradient} border ${acc.border} transition-all duration-200 shadow-lg ${acc.shadow} hover:scale-[1.02] text-left`}
-              >
-                <div className="p-2.5 rounded-xl bg-black/40 border border-white/10 shrink-0">
-                  {acc.icon}
+          {error && (
+            <div className="mb-6 p-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-start space-x-3 animate-fade-in">
+              <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+              <div className="flex-1 font-medium">{error}</div>
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Username Input */}
+            <div>
+              <label className="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2 font-display">
+                Username / Realm Identifier
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
+                  <User className="w-4 h-4" />
                 </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-sm text-white font-display truncate">
-                      {acc.name}
-                    </span>
-                    <ArrowRight className="w-4 h-4 text-gray-500 group-hover:text-white group-hover:translate-x-1 transition-all" />
-                  </div>
-                  <p className="text-[11px] text-gray-400 mt-0.5 line-clamp-2">
-                    {acc.subtitle}
-                  </p>
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Manual Login Card */}
-        <div className="lg:col-span-5 flex flex-col justify-center">
-          <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/10 shadow-2xl">
-            <h3 className="text-lg font-bold text-white font-display mb-1">
-              Custom Authentication
-            </h3>
-            <p className="text-xs text-gray-400 mb-6">
-              Enter your credentials to access your portal
-            </p>
-
-            {error && (
-              <div className="flex items-center space-x-2 p-3 mb-4 rounded-xl bg-rose-950/60 border border-rose-500/40 text-rose-300 text-xs">
-                <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
-                <span>{error}</span>
-              </div>
-            )}
-
-            <form onSubmit={handleManualLogin} className="space-y-4">
-              <div>
-                <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">
-                  Account Identifier
-                </label>
                 <input
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  placeholder="e.g. prudhvi, admin, vayu"
-                  className="w-full px-4 py-2.5 rounded-xl bg-black/50 border border-white/10 text-white text-sm focus:outline-none focus:border-amber-400 transition-colors"
+                  placeholder="e.g. prudhvi, vayu, jal, aakash, agni, admin"
+                  autoComplete="username"
+                  autoCapitalize="none"
+                  spellCheck="false"
+                  disabled={loading}
+                  className="w-full pl-10 pr-4 py-3 bg-black/50 border border-white/10 rounded-2xl text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all shadow-inner disabled:opacity-50"
                 />
               </div>
+            </div>
 
-              <div>
-                <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">
-                  Access Key / Password
-                </label>
+            {/* Password Input */}
+            <div>
+              <label className="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2 font-display">
+                Secret Access Key / Password
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
+                  <Lock className="w-4 h-4" />
+                </div>
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  className="w-full px-4 py-2.5 rounded-xl bg-black/50 border border-white/10 text-white text-sm focus:outline-none focus:border-amber-400 transition-colors"
+                  placeholder="Enter your access key"
+                  autoComplete="current-password"
+                  disabled={loading}
+                  className="w-full pl-10 pr-11 py-3 bg-black/50 border border-white/10 rounded-2xl text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all shadow-inner disabled:opacity-50"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-gray-400 hover:text-gray-200 transition-colors"
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
               </div>
+            </div>
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 hover:from-amber-400 hover:to-yellow-400 text-gray-950 font-bold text-sm font-display tracking-wider shadow-lg shadow-amber-500/30 transition-all active:scale-[0.98] disabled:opacity-50 mt-2"
-              >
-                {loading ? 'Authenticating Realm...' : 'ENTER THE REALM'}
-              </button>
-            </form>
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full mt-2 py-3.5 px-6 rounded-2xl bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 hover:from-purple-500 hover:via-indigo-500 hover:to-purple-600 active:scale-[0.99] text-white font-bold font-display text-sm tracking-wider shadow-lg shadow-purple-900/30 transition-all flex items-center justify-center space-x-2 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+            >
+              {loading ? (
+                <>
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  <span>Authenticating...</span>
+                </>
+              ) : (
+                <>
+                  <span>Enter Realm</span>
+                  <ArrowRight className="w-4 h-4" />
+                </>
+              )}
+            </button>
+          </form>
+
+          {/* Security Notice */}
+          <div className="mt-6 pt-4 border-t border-white/5 text-center">
+            <p className="text-[11px] text-gray-500 flex items-center justify-center space-x-1">
+              <Shield className="w-3 h-3 text-purple-400/80 mr-1 inline" />
+              <span>Role & permissions isolated upon authentication</span>
+            </p>
           </div>
         </div>
       </div>

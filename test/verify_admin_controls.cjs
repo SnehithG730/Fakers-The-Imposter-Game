@@ -15,13 +15,20 @@ async function run() {
   console.log('=== ADMIN CONTROL CENTER E2E VERIFICATION ===\n');
 
   // 1. Authenticate
-  const adminToken = await login('admin', 'admin123');
-  const teams = ['prudhvi', 'vayu', 'jal', 'aakash', 'agni'];
+  const adminToken = await login('admin', 'Adm!N7308');
+  const teamCreds = {
+    prudhvi: 'PruD#v!236;',
+    vayu: 'V@yU378',
+    jal: 'J@L135',
+    aakash: 'A@Ka$H124',
+    agni: '@Gn!246'
+  };
+  const teams = Object.keys(teamCreds);
   const teamTokens = {};
   for (const t of teams) {
-    teamTokens[t] = await login(t, `${t}123`);
+    teamTokens[t] = await login(t, teamCreds[t]);
   }
-  console.log('? Admin & 5 Teams authenticated with JWT');
+  console.log('✔ Admin & 5 Teams authenticated with JWT');
 
   const adminSocket = io('http://localhost:3000', { auth: { token: adminToken } });
   const sockets = {};
