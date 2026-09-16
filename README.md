@@ -1,9 +1,10 @@
 # 🌌 THE FIVE ELEMENTS — IMPOSTER
-> **A Production-Grade Real-Time Multiplayer Deduction Web Game**
+> **A Production-Grade Real-Time Multiplayer Deduction Web Game with 3D Elemental Environments**
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Render-emerald?style=for-the-badge&logo=render)](https://fakers-the-imposter-game.onrender.com/)
-[![Built With](https://img.shields.io/badge/Stack-React%20%7C%20TypeScript%20%7C%20Socket.IO%20%7C%20Supabase-purple?style=for-the-badge)](https://fakers-the-imposter-game.onrender.com/)
-[![License](https://img.shields.io/badge/License-MIT-amber?style=for-the-badge)](#license)
+[![Built With](https://img.shields.io/badge/Stack-React%2018%20%7C%20Three.js%20%7C%20Socket.IO%20%7C%20Supabase-purple?style=for-the-badge)](https://fakers-the-imposter-game.onrender.com/)
+[![Tests](https://img.shields.io/badge/Tests-17%20Passed%20%7C%2042%20Audit%20Passed-blue?style=for-the-badge)](https://fakers-the-imposter-game.onrender.com/)
+[![License](https://img.shields.io/badge/License-MIT-amber?style=for-the-badge)](#-license)
 
 🎮 **Play Live Now**: [https://fakers-the-imposter-game.onrender.com/](https://fakers-the-imposter-game.onrender.com/)
 
@@ -11,68 +12,79 @@
 
 ## 🏛️ Game Concept & Lore
 
-In the ancient cosmological council, five elemental realms convene to guard universal balance:
+In the ancient cosmological council, five elemental realms convene to maintain universal equilibrium:
 
-* **PRUDHVI (Earth)** — *Steadfast, resilient, and unyielding as ancient stone.* (Emerald Green `🌍`)
-* **VAYU (Air)** — *Swift, invisible, and carrying whispers across the realm.* (Sky Cyan `💨`)
-* **JAL (Water)** — *Fluid, deep, reflecting light and masking secrets.* (Ocean Blue `🌊`)
-* **AAKASH (Cosmos)** — *Boundless, eternal, holding the stars in orbital dance.* (Celestial Violet `🌌`)
-* **AGNI (Fire)** — *Radiant, fierce, consuming shadows with incandescent heat.* (Amber Flame `🔥`)
+* **🌍 PRUDHVI (Earth & Stone)** — *Steadfast, resilient, and unyielding as ancient bedrock.*
+* **💨 VAYU (Air & Wind)** — *Swift, invisible, and carrying whispers across the skies.*
+* **🌊 JAL (Water & Ocean)** — *Fluid, deep, reflecting light and masking secrets in the abyss.*
+* **🌌 AAKASH (Space & Cosmos)** — *Boundless, eternal, holding the stars in orbital dance.*
+* **🔥 AGNI (Fire & Energy)** — *Radiant, fierce, consuming shadows with incandescent heat.*
 
-### How Each Round Works:
-1. **The Public Theme**: Known to all five elemental teams and the Supreme Arbiter.
-2. **The Secret Keyword**: Distributed securely from the authoritative server to **exactly four teams**.
-3. **The Imposter**: Exactly **one team** is designated as the **Imposter** and receives **no keyword**.
-4. **The Discussion & Deduction**: Teams subtly discuss the secret topic without giving away the exact keyword. The imposter must blend in, decipher the keyword from context, and deflect suspicion.
-5. **The Buzzer & Accusations**: Teams buzz in to cast council accusations and identify the deceiver.
-6. **The Reveal**: The Supreme Arbiter reveals the truth, calculates scores, and rewards deception or keen deduction.
+### 🎭 How Each Round Works:
+1. **The Public Theme**: Broadcasted simultaneously to all five elemental teams and the Supreme Arbiter.
+2. **The Secret Keyword**: Authoritatively dispatched to **exactly four normal teams**.
+3. **The Imposter**: Exactly **one team** is secretly designated as the **Imposter** and receives **no keyword**.
+4. **The Discussion & Deduction**: Teams subtly discuss the topic without giving away the exact keyword. The Imposter must blend into the conversation, decipher the word from context clues, and deflect suspicion.
+5. **The Buzzer & Accusations**: Teams buzz in using the tactile buzzer orb to cast council accusations against the suspected imposter realm.
+6. **The Truth Reveal**: The Supreme Arbiter triggers the synchronized reveal, unmasking the imposter, awarding bonuses for evasion and keen detection, and updating leaderboard standings.
 
 ---
 
-## ⚡ Key Features
+## 🌌 3D Elemental Environments ("One Game System, Five Elemental Worlds")
 
-* **🛡️ Zero-Secret-Leakage Security Boundary**:
-  - The secret keyword is **never** sent over the wire to the imposter client.
-  - Server-side role projection isolates data in memory, preventing inspection via DOM, `data-*` attributes, WebSocket frames, or browser localStorage.
-  - **Visual Camouflage**: The Imposter's interface uses the identical color scheme and layout as normal teams to prevent screen peeking.
-* **👁️ Privacy Visor**:
-  - Built-in **Shield Card** toggle on the secret word card so players can shield their screen when playing in-person at LAN/party gatherings.
-* **⏱️ Server-Authoritative Synchronized Timer**:
-  - Millisecond-precision server epoch calculation (`Math.max(0, endsAt - now)`).
-  - Survives page reloads without clock drift or client-side manipulation.
-  - Quick adjustments ($\pm 15\text{s}$) and Pause/Resume controls for the Arbiter.
-* **🔔 Real-Time High-Precision Buzzer Queue**:
-  - Synchronous buzzer states (`BUZZER LOCKED`, `BUZZER OPEN`, `BUZZED`).
-  - Supports both **All Teams Can Buzz** (ranked millisecond queue) and **First Buzzer Only** (instant lockout).
-  - Tactile <kbd>Spacebar</kbd> / <kbd>Enter</kbd> keyboard shortcuts with Web Audio API synthetic audio feedback.
-* **⚖️ Council Accusation & Voting**:
-  - Interactive voting modal to accuse suspected elemental realms.
-  - Real-time vote tracking for the Arbiter.
-* **👑 Supreme Arbiter Command Center**:
-  - Full game lifecycle control (`START ROUND`, `OPEN BUZZER`, `LOCK ROUND`, `REVEAL ANSWER`, `NEXT ROUND`, `RESET GAME`).
-  - **Confirmation Modals** to prevent accidental early reveals or resets.
-  - **Curated Library**: 57+ built-in presets across 15+ categories (Mythology, Cyberpunk, Science, Cinema, History, Pop Culture) with instant search and 1-click **Shuffle Preset**.
-* **🏆 Scoring & Leaderboard Engine**:
-  - Correct Imposter Detection: **+20 pts**
-  - Fastest Correct Buzzer Bonus: **+10 pts**
-  - Imposter Deception / Escape Bonus: **+30 pts** (awarded if $\le 1$ team guessed correctly)
-* **💾 Supabase Database Integration**:
-  - Persists completed round outcomes, imposter history, and scores to Supabase PostgreSQL.
-* **♿ Full Accessibility & Responsiveness**:
-  - High-contrast typography, WCAG focus-visible indicators, semantic ARIA labels, and `@media (prefers-reduced-motion)` support.
+Every team realm features a dedicated, high-performance **Three.js WebGL canvas** that immerses players directly inside their elemental world while preserving identical game controls and glassmorphic UI clarity:
+
+| Realm | 3D Hero Artifact | Particle & Atmospheric System | Palette |
+| :--- | :--- | :--- | :--- |
+| **🌍 PRUDHVI** | Ancient monolithic dodecahedron geode with perturbed mineral facets & crystal lattice | 280+ rising sediment spore particles, warm directional sunbeams & moss-emerald ambient glow | Emerald `#10b981`, Amber `#d97706`, Slate |
+| **💨 VAYU** | Sculptural parametric wind vortex (*Torus Knot*) with dynamic triple wind rings | 420+ streamline particles tracing helical vortex orbits with high-altitude atmospheric mist | Cyan `#06b6d4`, Electric Teal `#38bdf8` |
+| **🌊 JAL** | Pulsating oceanic fluid sphere with dynamic harmonic wave vertex displacement & caustics | 320+ rising micro-bubbles wobbling with fluid sine-waves & underwater god rays | Ocean Blue `#3b82f6`, Azure `#60a5fa` |
+| **🌌 AAKASH** | Celestial planetoid core with dual tilted holographic planetary particle rings & 3 orbiting satellites | 550+ multi-depth parallax starfield particles & stellar nebula glow | Astral Violet `#a855f7`, Magenta `#e879f9` |
+| **🔥 AGNI** | Incandescent volcanic magma core with animated fissure displacement & orbiting obsidian shards | 380+ rising ember spark particles with turbulent velocity acceleration & solar corona flare | Crimson `#f43f5e`, Molten Gold `#f97316` |
 
 ---
 
 ## 🔐 Authentication Credentials
 
-| Role / Realm | Username / Identifier | Secret Access Key (Password) | Access Level |
+To ensure authentic deduction without pre-selected role bias, the login screen provides a **single unified authentication portal** (no team selector buttons). Players enter their username and secret access key:
+
+| Role / Elemental Realm | Username / Identifier | Secret Access Key (Password) | Dashboard & Permissions |
 | :--- | :--- | :--- | :--- |
-| **Supreme Arbiter (Admin)** | `admin` | `Adm!N7308` | Complete game & timer controls, reveals, presets |
-| **PRUDHVI (Earth)** | `prudhvi` | `PruD#v!236;` | Earth Realm Dashboard & Buzzer |
-| **VAYU (Air)** | `vayu` | `V@yU378` | Air Realm Dashboard & Buzzer |
-| **JAL (Water)** | `jal` | `J@L135` | Water Realm Dashboard & Buzzer |
-| **AAKASH (Cosmos)** | `aakash` | `A@Ka$H124` | Cosmos Realm Dashboard & Buzzer |
-| **AGNI (Fire)** | `agni` | `@Gn!246` | Fire Realm Dashboard & Buzzer |
+| **Supreme Arbiter (Admin)** | `admin` | `Adm!N7308` | Full game orchestration, timer controls, reveals, presets |
+| **PRUDHVI (Earth)** | `prudhvi` | `PruD#v!236;` | Earth 3D Realm Dashboard, Secret Card & Buzzer |
+| **VAYU (Air)** | `vayu` | `V@yU378` | Air 3D Realm Dashboard, Secret Card & Buzzer |
+| **JAL (Water)** | `jal` | `J@L135` | Water 3D Realm Dashboard, Secret Card & Buzzer |
+| **AAKASH (Cosmos)** | `aakash` | `A@Ka$H124` | Cosmos 3D Realm Dashboard, Secret Card & Buzzer |
+| **AGNI (Fire)** | `agni` | `@Gn!246` | Fire 3D Realm Dashboard, Secret Card & Buzzer |
+
+---
+
+## ⚡ Core Technical Features
+
+* **🛡️ Zero-Secret-Leakage Security Boundary**:
+  - The secret keyword is **never** sent over the wire to the imposter client.
+  - Role-isolated server projections prevent inspection through DOM inspection, `data-*` attributes, WebSocket payloads, or browser storage.
+  - **Visual Camouflage**: The Imposter's dashboard preserves standard layout structure to prevent shoulder-surfing/screen-peeking.
+* **👁️ Privacy Visor**:
+  - Built-in **Shield Card** toggle on the secret word card allows in-person players to veil their screen at live party events.
+* **⏱️ Server-Authoritative Synchronized Clock**:
+  - Millisecond-precision server epoch calculation (`Math.max(0, endsAt - now)`).
+  - Resilient to network jitter and page reloads; includes pause/resume and $\pm 15\text{s}$ quick adjustments for the Arbiter.
+* **🔔 Monotonic Real-Time Buzzer Queue**:
+  - Sub-millisecond ranked buzzer queue with duplicate rejection and instant lockout modes (**All Teams Can Buzz** vs **First Buzzer Only**).
+  - Keyboard shortcuts (<kbd>Spacebar</kbd> / <kbd>Enter</kbd>) with synthetic Web Audio feedback.
+* **👑 Supreme Arbiter Command Center**:
+  - Full game lifecycle control (`START ROUND`, `OPEN BUZZER`, `LOCK ROUND`, `REVEAL ANSWER`, `NEXT ROUND`, `RESET GAME`).
+  - Confirmation modals to safeguard against accidental reveals or match resets.
+  - **Curated Library (57+ Presets across 15+ Categories)**: Instant search and 1-click preset shuffling.
+* **🏆 Dynamic Scoring Engine**:
+  - Correct Imposter Detection: **+20 pts**
+  - Fastest Correct Buzzer Bonus: **+10 pts**
+  - Imposter Deception / Escape Bonus: **+30 pts** (awarded if $\le 1$ team guessed correctly)
+* **💾 Supabase Database Persistence**:
+  - Automatically records completed round logs, imposter history, and cumulative match standings.
+* **♿ Performance & Accessibility**:
+  - GPU-accelerated Three.js rendering with pointer parallax lerping, responsive canvas resizing, WebGL fallback detection, and `@media (prefers-reduced-motion)` compliance.
 
 ---
 
@@ -80,23 +92,23 @@ In the ancient cosmological council, five elemental realms convene to guard univ
 
 ```
 Frontend:
-  ├── React 18 (SPA)
+  ├── React 18 (SPA) & Vite 5.4
   ├── TypeScript 5.7
-  ├── Tailwind CSS 3.4
+  ├── Three.js (WebGL 3D Elemental Environments)
+  ├── Tailwind CSS 3.4 (Glassmorphism & Responsive Layout)
   ├── Lucide Icons & Canvas Confetti
-  ├── Web Audio API Synthesizer
-  └── Vite 5.4
+  └── Web Audio API Synthesizer
 
 Backend & Real-Time Engine:
-  ├── Node.js (ES Modules)
+  ├── Node.js 20+ (ES Modules)
   ├── Express 4.21
   ├── Socket.IO 4.8 (WebSocket Rooms & Events)
   ├── JWT (JSON Web Tokens) & Bcryptjs
   └── Supabase SDK (@supabase/supabase-js)
 
-Testing & Tooling:
-  ├── Vitest (Unit & Security Test Suite)
-  └── Custom Automated E2E Concurrency & Security Batteries
+Testing & Verification:
+  ├── Vitest (Unit & Engine Test Suite)
+  └── Custom Automated E2E Concurrency & Security Batteries (42-Point Audit)
 ```
 
 ---
@@ -114,8 +126,8 @@ cd Fakers-The-Imposter-Game
 npm install
 ```
 
-### 3. Environment Variables
-Create a `.env` file in the root directory:
+### 3. Configure Environment Variables
+Create a `.env` file in the project root:
 ```env
 PORT=3000
 JWT_SECRET=super_secret_elemental_jwt_key_2026_five_elements_imposter
@@ -125,7 +137,6 @@ SUPABASE_KEY=sb_publishable_ZBfL7g6kEPj3vvEHvmns9g_Cuzw7N-V
 
 ### 4. Run Development Server
 ```bash
-# Start both client and server in development mode
 npm run dev
 ```
 
@@ -135,26 +146,31 @@ npm run build
 npm start
 ```
 
-### 6. Run Test Suites
+### 6. Run Test & Audit Batteries
 ```bash
-# Run Vitest test suite
+# Run Vitest unit & game engine suite (17/17)
 npm test
 
-# Run multi-client end-to-end security audit
+# Run full 42-point multi-client security & synchronization audit
 node test/full_system_audit.cjs
+
+# Run Arbiter controls verification
+node test/verify_admin_controls.cjs
+
+# Run Multi-Team interface verification
+node test/verify_teams.cjs
 ```
 
 ---
 
-## 🌐 Cloud Deployment
+## 🌐 Cloud Deployment (Render)
 
-### Deploy to Render (Recommended)
 This repository includes a [`render.yaml`](./render.yaml) specification:
-1. Create a new **Web Service** on [Render](https://render.com).
-2. Connect your GitHub repository `SnehithG730/Fakers-The-Imposter-Game`.
+1. Create a **Web Service** on [Render](https://render.com).
+2. Connect the GitHub repository `SnehithG730/Fakers-The-Imposter-Game`.
 3. **Build Command**: `npm install && npm run build`
 4. **Start Command**: `npm start`
-5. Set environment variables (`PORT=3000`, `JWT_SECRET`, `SUPABASE_KEY`).
+5. Supply environment variables (`PORT=3000`, `JWT_SECRET`, `SUPABASE_KEY`).
 
 ---
 
@@ -165,5 +181,5 @@ Distributed under the **MIT License**. See `LICENSE` for details.
 ---
 
 <p align="center">
-  <b>THE FIVE ELEMENTS — IMPOSTER</b> • Built for real-time multiplayer party deduction.
+  <b>THE FIVE ELEMENTS — IMPOSTER</b> • Real-time multiplayer deduction for LAN, parties, and competitive gaming.
 </p>
