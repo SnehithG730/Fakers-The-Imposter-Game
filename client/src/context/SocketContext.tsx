@@ -50,7 +50,8 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       return;
     }
 
-    const newSocket = io({
+    const backendUrl = import.meta.env.VITE_BACKEND_URL || import.meta.env.VITE_API_URL || '';
+    const newSocket = io(backendUrl || undefined, {
       auth: { token },
       reconnectionAttempts: 10,
       reconnectionDelay: 1000
