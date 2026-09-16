@@ -13,6 +13,8 @@
     "build:client": "vite build",
     "build:server": "tsc -p tsconfig.server.json",
     "build": "npm run build:client && npm run build:server",
+    "postinstall": "npm run build",
+    "prestart": "npm run build",
     "start": "node dist/server/index.js",
     "test": "vitest run",
     "test:watch": "vitest"
@@ -44,12 +46,12 @@
     "socket.io-client": "^4.8.1",
     "tailwind-merge": "^3.0.1",
     "tailwindcss": "^3.4.17",
+    "tsx": "^4.19.2",
     "typescript": "^5.7.3",
     "vite": "^5.4.14",
     "zod": "^3.24.2"
   },
   "devDependencies": {
-    "tsx": "^4.19.2",
     "vitest": "^2.1.8"
   },
   "type": "module"
