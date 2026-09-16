@@ -130,18 +130,24 @@ app.get('/api/presets', (req, res) => {
 });
 
 // Serve frontend static build
-const clientDistPath = path.resolve(__dirname, '../../dist/client');
-const clientAltPath = path.resolve(__dirname, '../client');
+const candidatePaths = [
+  path.resolve(process.cwd(), 'dist/client'),
+  path.resolve(__dirname, '../client'),
+  path.resolve(__dirname, '../../dist/client')
+];
 
-if (fs.existsSync(clientDistPath)) {
+let clientDistPath: string | null = null;
+for (const cand of candidatePaths) {
+  if (fs.existsSync(cand) && fs.existsSync(path.join(cand, 'index.html'))) {
+    clientDistPath = cand;
+    break;
+  }
+}
+
+if (clientDistPath) {
   app.use(express.static(clientDistPath));
   app.get('*', (req, res) => {
-    res.sendFile(path.join(clientDistPath, 'index.html'));
-  });
-} else if (fs.existsSync(clientAltPath)) {
-  app.use(express.static(clientAltPath));
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(clientAltPath, 'index.html'));
+    res.sendFile(path.join(clientDistPath!, 'index.html'));
   });
 }
 
