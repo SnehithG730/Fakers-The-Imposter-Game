@@ -11,6 +11,7 @@ import {
   TimerState
 } from './types.js';
 import { THEME_PRESETS, TEAM_METADATA } from './presets.js';
+import { DatabaseService } from './db.js';
 
 const ALL_TEAMS: TeamId[] = ['prudhvi', 'vayu', 'jal', 'aakash', 'agni'];
 
@@ -329,6 +330,10 @@ export class GameEngine {
       scores: { ...this.scores },
       roundSummary: summary
     };
+
+    // Asynchronously persist to Supabase
+    DatabaseService.saveRound(this.currentRoundNumber, this.theme, this.revealData).catch(() => {});
+    DatabaseService.updateScores(this.scores).catch(() => {});
 
     return { success: true, revealData: this.revealData };
   }

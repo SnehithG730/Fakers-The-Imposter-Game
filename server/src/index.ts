@@ -1,4 +1,4 @@
-import express from 'express';
+﻿import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
@@ -10,6 +10,7 @@ import { authenticateUser, verifyToken } from './auth.js';
 import { GameEngine } from './gameEngine.js';
 import { setupSocketHandler } from './socketHandler.js';
 import { THEME_PRESETS, TEAM_METADATA } from './presets.js';
+import { DatabaseService } from './db.js';
 
 dotenv.config();
 
@@ -48,6 +49,10 @@ app.get('/api/health', (req, res) => {
   res.json({
     status: 'online',
     timestamp: Date.now(),
+    database: {
+      connected: DatabaseService.isConnected(),
+      provider: 'supabase'
+    },
     game: {
       round: gameEngine.getRoundState()
     }
@@ -88,7 +93,7 @@ app.get('/api/auth/me', (req, res) => {
  * - ADMIN receives full state (completeRoundState) including imposter identity & secret keyword.
  * - NORMAL TEAM receives { theme, role: 'TEAM', ownKeyword, ... }.
  * - IMPOSTER receives { theme, role: 'IMPOSTER', ownKeyword: null, ... }.
- * - Unauthenticated requests are rejected.
+ * - Unauthenticated requests are rejected with 401.
  */
 app.get('/api/game/state', (req, res) => {
   const authHeader = req.headers.authorization;
@@ -141,5 +146,5 @@ if (fs.existsSync(clientDistPath)) {
 }
 
 server.listen(PORT, () => {
-  console.log(`? THE FIVE ELEMENTS � IMPOSTER server running at http://localhost:${PORT}`);
+  console.log(`🚀 THE FIVE ELEMENTS - IMPOSTER server running at http://localhost:${PORT}`);
 });
