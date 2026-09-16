@@ -3,7 +3,7 @@
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Render-emerald?style=for-the-badge&logo=render)](https://fakers-the-imposter-game.onrender.com/)
 [![Built With](https://img.shields.io/badge/Stack-React%2018%20%7C%20Three.js%20%7C%20Socket.IO%20%7C%20Supabase-purple?style=for-the-badge)](https://fakers-the-imposter-game.onrender.com/)
-[![Tests](https://img.shields.io/badge/Tests-17%20Passed%20%7C%2042%20Audit%20Passed-blue?style=for-the-badge)](https://fakers-the-imposter-game.onrender.com/)
+[![Tests](https://img.shields.io/badge/Tests-18%20Passed%20%7C%2042%20Audit%20Passed-blue?style=for-the-badge)](https://fakers-the-imposter-game.onrender.com/)
 [![License](https://img.shields.io/badge/License-MIT-amber?style=for-the-badge)](#-license)
 
 🎮 **Play Live Now**: [https://fakers-the-imposter-game.onrender.com/](https://fakers-the-imposter-game.onrender.com/)
@@ -151,7 +151,7 @@ npm start
 
 ### 6. Run Test & Audit Batteries
 ```bash
-# Run Vitest unit & game engine suite (17/17)
+# Run Vitest unit & game engine suite (18/18)
 npm test
 
 # Run full 42-point multi-client security & synchronization audit
