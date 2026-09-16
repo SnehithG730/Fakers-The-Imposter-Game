@@ -1,10 +1,11 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useGameSocket } from '../context/SocketContext';
 import { TimerDisplay } from '../components/TimerDisplay';
 import { BuzzerButton } from '../components/BuzzerButton';
 import { GuessModal } from '../components/GuessModal';
 import { Scoreboard } from '../components/Scoreboard';
+import { ElementalBackground } from '../components/canvas/ElementalBackground';
 import {
   Eye,
   EyeOff,
@@ -135,8 +136,11 @@ export const TeamDashboard: React.FC = () => {
   const isRoundActive = teamState.roundState === 'ACTIVE' || teamState.roundState === 'BUZZER_ACTIVE';
 
   return (
-    <div className={`min-h-[calc(100vh-4rem)] bg-gradient-to-b ${theme.bgGradient} py-6 px-4 sm:px-6 lg:px-8 transition-colors duration-500`}>
-      <div className="max-w-7xl mx-auto space-y-6">
+    <div className={`min-h-[calc(100vh-4rem)] bg-gradient-to-b ${theme.bgGradient} py-6 px-4 sm:px-6 lg:px-8 transition-colors duration-500 relative`}>
+      {/* 3D Elemental Environment Scene */}
+      <ElementalBackground teamId={teamId} />
+
+      <div className="max-w-7xl mx-auto space-y-6 relative z-10">
 
         {/* Top Header & Elemental Identity Banner */}
         <div className={`glass-panel p-6 rounded-3xl border ${theme.borderAccent} shadow-2xl relative overflow-hidden`}>
